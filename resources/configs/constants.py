@@ -36,8 +36,7 @@ class CLayouts:
                                 as tuples of three values for each title location.
 
         Example usage:
-        >>> set_title_location()
-        >>> set_title_location({"tl": (0.5, 0.8, "center"), "tr": (0.9, 0.9, "right")})
+        >>> CLayouts.set_title_location({"tl": (0.5, 0.8, "center"), "tr": (0.9, 0.9, "right")})
 
         """
         title_configs = {"tl", "tr", "bl", "br"}
