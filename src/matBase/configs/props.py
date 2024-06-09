@@ -1,4 +1,4 @@
-from resources.configs import layout
+from src.matBase.configs import layout
 import math
 import warnings
 

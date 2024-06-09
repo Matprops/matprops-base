@@ -7,8 +7,8 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 setup(
     name='matprops-base',
     version='1.0.0',
-    packages=find_packages(where="resources"),
-    package_dir={'': 'resources'},
+    packages=find_packages(where="matBase"),
+    package_dir={'': 'matBase'},
     classifiers=[
         "Programming Language :: Python :: 3",
         "Development Status :: 3 - Alpha",
