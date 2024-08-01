@@ -1,47 +1,55 @@
+import pandas as pd
+import json
+
 from preprocess import DtPreprocess
 from modal.props import Prop
-from constants import checkNotNull
+from constants import checkNotNull, validate_type, validate_dataset
 from builder.feature import Feature
 from builder.title import Title
 from builder.description import Description
+from src.matBase.utils.common import get_function_stack
 
 
 class MatData:
-    def __init__(self, dataset, chart_type, feature=None, title=None, description=None):
-        self.data = dict()
-        self.chart_type = chart_type
-        self.dataset = dataset
+    def __init__(self, dataset, chart, feature=None, feature_ref=None, title=None, title_ref=None, description=None, description_ref=None):
+        self.data = pd.DataFrame()
+        self.RefDataset = dataset
 
-        self.feature = Feature(self.set_feature(feature))
-        self.title = Title(self.set_title(title))
-        self.description = Description(self.set_description(description))
+        # self.chart = chart
+        self.chart_type = None
+        self.set_chart_type(get_function_stack())
+
+        self.feature = Feature(feature, feature_ref)
+        self.title = Title(title, title_ref)
+        self.description = Description(description, description_ref)
 
         self.preprocess = DtPreprocess(dataset)
         self.preprocess.validate()
 
-    def set_feature(self, feature):
-        return self.validate_entities(feature)
+        self. build()
 
-    def set_title(self, title):
-        return self.validate_entities(title)
+    def build(self):
+        if not validate_dataset(self.RefDataset):
+            raise ValueError("Received a dataset with basic norms of equal size and got an dataset with improper data values. please refer the docs for a proper set of dataset values.")
 
-    def set_description(self, description):
-        return self.validate_entities(description)
+
+    def set_chart_type(self, chart):
+        with open("charts.json", 'r') as file:
+            data = json.load(file)
+
+            for key in data:
+                charts = data[key]
+                if self.chart in charts:
+                    self.chart_type = key
+                    break
+        if self.chart_type is None:
+            raise NotImplementedError(f"The method ({self.chart}) you are attempting to use is not completely implemented yet "
+                                      "and will be available in future releases. Please refer to the documentation for "
+                                      "updates on its availability and usage details.")
 
     def get_data_modal(self):
-        if self.chart_type == "prop":
-            return Prop(self.preprocess.getDtype(), self.dataset, self.feature, self.title, self.description)
-        else:
-            raise ValueError("Improper chart value. expected chart values")
         # improve modals here
-
-    def validate_entities(self, entity):
-        try:
-            if not checkNotNull(entity):
-                return None
-            if not isinstance(entity, str) and not isinstance(entity, list):
-                raise TypeError("Expected type doesn't match the variable type. Expected builder types are "
-                                f"list and string. But got the builder with the type: {type(entity)}")
-            return entity
-        except Exception as e:
-            raise
+        if self.chart == "props":
+            return Prop(self.preprocess.getDtype(), self.RefDataset, self.feature, self.title, self.description)
+        else:
+            raise ValueError("Improper chart value.")

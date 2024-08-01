@@ -9,8 +9,8 @@ class DtPreprocess:
         self.validDtypes = constants.validDtypes
         self.data = data
         self.dtype = None
-        self.valid_charts = set()
-        self.render_chart_types()
+
+        self.valid = False
 
     def validate(self):
         try:
@@ -26,6 +26,7 @@ class DtPreprocess:
                 raise TypeError("Data is validated as null value. Kindly check the builder and pass the same.")
         except Exception as e:
             raise
+        self.valid = True
 
     def getDtype(self):
         return self.dtype
@@ -40,13 +41,3 @@ class DtPreprocess:
                 return not bool(self.data)
         except Exception as e:
             raise Exception("Exception occurred while doing null check. Check the builder for nullability.")
-
-    def render_chart_types(self):
-        with open("chart_types.json", 'r') as file:
-            data = json.load(file)
-
-            for item in data:
-                keys = item.keys()
-                self.valid_charts.update(keys)
-
-            self.valid_charts = list(self.valid_charts)

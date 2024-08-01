@@ -1,24 +1,28 @@
-from ..constants import checkNotNull
+from ..constants import checkNotNull, validate_type
+import pandas as pd
+from ...utils.common import eval_list, eval_dict
 
 
 class Feature:
-    def __init__(self, feature):
-        self.ref = feature
+    def __init__(self, feature, ref):
+        self.ref = ref
+        self.feature = feature
+        self.data = None
+
         self.type = None
 
         self.set_feature()
 
     def set_feature(self):
-        if checkNotNull(self.ref):
-            self.set_feature_type()
-        else:
-            self.ref = None
+        self.type = validate_type(self.feature, self.ref)
+        self.build_feature()
 
-    def set_feature_type(self):
-        if isinstance(self.ref, str):
-            self.type = "str"
-        elif isinstance(self.ref, list):
-            self.type = "list"
-        else:
-            self.ref = None
-            self.type = None
+    def build_feature(self):
+        if self.type == "list":
+            if eval_list(self.data):
+                self.data = pd.Series(self.data, name=self.ref)
+        if self.type == "dict":
+            if eval_dict(self.data):
+                self.data = pd.Series(self.data, name=self.ref)
+
+
