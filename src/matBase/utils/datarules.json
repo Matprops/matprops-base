@@ -1,0 +1,7 @@
+{
+  "valid_dtype": {
+    "data" : ["ndarray", "list", "dict", "DataFrame", "Series"],
+    "name" : ["str", "ndarray", "list", "dict", "DataFrame", "Series"],
+    "desc" : ["str", "ndarray", "list", "dict", "DataFrame", "Series"]
+  }
+}

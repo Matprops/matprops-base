@@ -42,7 +42,7 @@ class PropConfig:
             warnings.warn("Provide title column to get a better chart")
 
     def set_description_layout(self):
-        if self.description is not None:
+        if self.description is not False:
             if self.title_loc == "tl":
                 self.description_layout = [layout.title_locations[self.title_loc][0],
                                            layout.title_locations[self.title_loc][1] + self.description_len / 10 - 0.1,
