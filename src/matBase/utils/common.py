@@ -51,5 +51,9 @@ def get_list_ndim(l):
     """
     return 1 + max(get_list_ndim(item) for item in l if isinstance(item, list))
 
+def get_dict_ndim(d):
+    return len(d)
+
 def ndarray_to_list(data):
+    pass
 

@@ -6,8 +6,8 @@ class ChartDataFactory:
             'props': PropDataBuilder
         }
 
-    def process_data(self, chart, dtype, raw_data, **kwargs):
+    def process_data(self, chart, raw_data, dtype, **kwargs):
         if chart in self._factories:
-            return self._factories[chart](dtype=dtype, raw_data=raw_data, **kwargs)
+            return self._factories[chart](raw_data=raw_data, dtype=dtype,  **kwargs)
         else:
             raise ValueError(f"Unknown chart type: {chart}")

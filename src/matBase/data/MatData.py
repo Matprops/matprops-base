@@ -22,5 +22,5 @@ class MatData:
     def build(self, **kwargs):
         factory = ChartDataFactory()
         if self.data_t is not None:
-            modal = factory.process_data(self.chart_type, self.data_t, self.raw_data, **kwargs)
+            modal = factory.process_data(self.chart_type, self.raw_data, self.data_t, **kwargs)
 
