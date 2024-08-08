@@ -9,6 +9,12 @@ class MatData:
         self.raw_data = data
         self.data_t = None
 
+        self.data = None
+        self.prop_titles = None
+        self.prop_descriptions = None
+
+        self.len = 0
+
         self.validate()
         self.build(**kwargs)
 
@@ -22,5 +28,13 @@ class MatData:
     def build(self, **kwargs):
         factory = ChartDataFactory()
         if self.data_t is not None:
-            modal = factory.process_data(self.chart_type, self.raw_data, self.data_t, **kwargs)
+            d = factory.process_data(self.chart_type, self.raw_data, self.data_t, **kwargs)
+            if d.data is not None:
+                self.data = d.data
+            if d.p_name is not None:
+                self.prop_titles = d.p_name
+            if d.p_desc is not None:
+                self.prop_descriptions = d.p_desc
+            if d.data_len > 0:
+                self.len = d.data_len
 
