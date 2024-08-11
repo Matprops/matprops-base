@@ -1,8 +1,8 @@
 import pandas as pd
-from ...utils.common import get_dtype, get_list_ndim, verify_dimensions, get_dict_ndim
+from ..utils.common import *
 
 class PropDataBuilder:
-    def __init__(self, raw_data, dtype, **kwargs):
+    def __init__(self, raw_data, dtype, kwargs):
         self.raw_data = raw_data
         self.dtype = dtype
 
@@ -17,7 +17,7 @@ class PropDataBuilder:
         self.p_desc = None
         self.p_desc_dtype = None
 
-        self.infer_kwargs(**kwargs)
+        self.infer_kwargs(kwargs)
         match self.dtype:
             case "ndarray":
                 self.numpy_handler()

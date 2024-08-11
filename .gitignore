@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+matprops_base.egg-info/
 build/
 develop-eggs/
 dist/

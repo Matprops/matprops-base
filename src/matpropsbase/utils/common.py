@@ -11,6 +11,7 @@ def get_function_stack():
     # the called function is two levels from the current function
     caller_frame = stack[2]
     caller_name = caller_frame.function
+    caller_name = caller_frame.function
     return caller_name
 
 def get_chart_type(chart):
