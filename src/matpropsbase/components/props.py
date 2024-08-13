@@ -1,4 +1,3 @@
-import pandas as pd
 from ..utils.common import *
 
 class PropDataBuilder:
@@ -143,7 +142,7 @@ class PropDataBuilder:
         self.data_len = verify_dimensions(data_len, name_len, desc_len)
 
 
-    def infer_kwargs(self, **kwargs):
+    def infer_kwargs(self, kwargs):
         """
         p_name = prop name
         p_desc = prop description

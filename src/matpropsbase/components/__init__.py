@@ -1,4 +1,4 @@
-from props import PropDataBuilder
+from .props import PropDataBuilder
 
 class ChartDataFactory:
     def __init__(self):
